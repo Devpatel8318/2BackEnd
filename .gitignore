@@ -1,0 +1,9 @@
+.idea
+api/node_modules
+api/.env
+.env
+/node_modules
+.idea
+node_modules
+.env
+uploads/*
