@@ -244,7 +244,19 @@ app.put('/places', async (req, res) => {
 
 //index page
 app.get('/places', async (req, res) => {
-    res.json(await Place.find());
+    try {
+        connectDB();
+        const placeData = await Place.find();
+        const newData = [];
+        placeData.forEach(element => {
+            let {_id,owner,title,address,photos,description,perks,extraInfo,checkIn,checkOut,maxGuests,price} = element._doc;
+            photos = photos[0];
+            newData.push({_id,owner,title,address,photos,description,perks,extraInfo,checkIn,checkOut,maxGuests,price});
+        });
+        res.json(newData);
+    } catch (e) {
+        res.send({ err: e.message }).status(500);
+    }
 })
 
 
